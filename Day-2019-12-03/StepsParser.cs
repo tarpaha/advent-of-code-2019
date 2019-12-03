@@ -25,16 +25,16 @@ namespace Day_2019_12_03
             switch (direction)
             {
                 case 'U':
-                    pos.Y += distance;
+                    pos.y += distance;
                     break;
                 case 'D':
-                    pos.Y -= distance;
+                    pos.y -= distance;
                     break;
                 case 'L':
-                    pos.X -= distance;
+                    pos.x -= distance;
                     break;
                 case 'R':
-                    pos.X += distance;
+                    pos.x += distance;
                     break;
             }
             return pos;

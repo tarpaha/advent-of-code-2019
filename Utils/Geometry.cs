@@ -6,12 +6,12 @@
         {
             intersection = new Vector2();
 
-            var divider = (s1.P1.X - s1.P0.X) * (s0.P0.Y - s0.P1.Y) - (s0.P0.X - s0.P1.X) * (s1.P1.Y - s1.P0.Y);
+            var divider = (s1.p1.x - s1.p0.x) * (s0.p0.y - s0.p1.y) - (s0.p0.x - s0.p1.x) * (s1.p1.y - s1.p0.y);
             if (divider == 0)
                 return false;
             
-            var t0 = (s1.P0.Y - s1.P1.Y) * (s0.P0.X - s1.P0.X) + (s1.P1.X - s1.P0.X) * (s0.P0.Y - s1.P0.Y);
-            var t1 = (s0.P0.Y - s0.P1.Y) * (s0.P0.X - s1.P0.X) + (s0.P1.X - s0.P0.X) * (s0.P0.Y - s1.P0.Y);
+            var t0 = (s1.p0.y - s1.p1.y) * (s0.p0.x - s1.p0.x) + (s1.p1.x - s1.p0.x) * (s0.p0.y - s1.p0.y);
+            var t1 = (s0.p0.y - s0.p1.y) * (s0.p0.x - s1.p0.x) + (s0.p1.x - s0.p0.x) * (s0.p0.y - s1.p0.y);
  
             if (divider > 0)
             {
@@ -24,8 +24,8 @@
                     return false;
             }
 
-            intersection.X = s0.P0.X + t0 * (s0.P1.X - s0.P0.X) / divider;
-            intersection.Y = s0.P0.Y + t0 * (s0.P1.Y - s0.P0.Y) / divider;
+            intersection.x = s0.p0.x + t0 * (s0.p1.x - s0.p0.x) / divider;
+            intersection.y = s0.p0.y + t0 * (s0.p1.y - s0.p0.y) / divider;
                 
             return true;
         }
@@ -33,48 +33,48 @@
         // returns -1 if point not on the segment
         public static int DistanceFromSegmentStart(Segment2 s, Vector2 p)
         {
-            if (s.P0.Y == s.P1.Y)
+            if (s.p0.y == s.p1.y)
             {
                 // horizontal segment
                 
-                if (p.Y != s.P0.Y)
+                if (p.y != s.p0.y)
                     return -1;
                 
-                if (s.P0.X < s.P1.X)
+                if (s.p0.x < s.p1.x)
                 {
                     // from left to right
-                    if (p.X < s.P0.X || p.X > s.P1.X)
+                    if (p.x < s.p0.x || p.x > s.p1.x)
                         return -1;
-                    return p.X - s.P0.X;
+                    return p.x - s.p0.x;
                 }
                 else
                 {
                     // from right to left
-                    if (p.X < s.P1.X || p.X > s.P0.X)
+                    if (p.x < s.p1.x || p.x > s.p0.x)
                         return -1;
-                    return s.P0.X - p.X;
+                    return s.p0.x - p.x;
                 }
             }
             else
             {
                 // vertical segment
                 
-                if (p.X != s.P0.X)
+                if (p.x != s.p0.x)
                     return -1;
                 
-                if (s.P0.Y < s.P1.Y)
+                if (s.p0.y < s.p1.y)
                 {
                     // from down to up
-                    if (p.Y < s.P0.Y || p.Y > s.P1.Y)
+                    if (p.y < s.p0.y || p.y > s.p1.y)
                         return -1;
-                    return p.Y - s.P0.Y;
+                    return p.y - s.p0.y;
                 }
                 else
                 {
                     // from up to down 
-                    if (p.Y < s.P1.Y || p.Y > s.P0.Y)
+                    if (p.y < s.p1.y || p.y > s.p0.y)
                         return -1;
-                    return s.P0.Y - p.Y;
+                    return s.p0.y - p.y;
                 }
             }
         }

@@ -4,20 +4,20 @@ namespace Utils
 {
     public struct Vector2
     {
-        public int X;
-        public int Y;
+        public int x;
+        public int y;
 
-        public int Manhattan => Math.Abs(X) + Math.Abs(Y); 
+        public int Manhattan => Math.Abs(x) + Math.Abs(y); 
         
         public Vector2(int x, int y)
         {
-            X = x;
-            Y = y;
+            this.x = x;
+            this.y = y;
         }
 
         public override string ToString()
         {
-            return $"({X}, {Y})";
+            return $"({x}, {y})";
         }
     }
 }
