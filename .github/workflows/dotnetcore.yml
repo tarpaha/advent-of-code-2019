@@ -1,6 +1,6 @@
 name: Run all
 
-on: []
+on: push
 
 jobs:
   build:
