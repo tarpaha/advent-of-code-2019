@@ -95,6 +95,42 @@ namespace Utils
                         ip += 2;
                         break;
                     }
+                    case 5:
+                    {
+                        var value1 = imm1 ? _memory[ip + 1] : _memory[_memory[ip + 1]];
+                        var value2 = imm2 ? _memory[ip + 2] : _memory[_memory[ip + 2]];
+                        if (value1 != 0)
+                            ip = value2;
+                        else
+                            ip += 3;
+                        break;
+                    }
+                    case 6:
+                    {
+                        var value1 = imm1 ? _memory[ip + 1] : _memory[_memory[ip + 1]];
+                        var value2 = imm2 ? _memory[ip + 2] : _memory[_memory[ip + 2]];
+                        if (value1 == 0)
+                            ip = value2;
+                        else
+                            ip += 3;
+                        break;
+                    }
+                    case 7:
+                    {
+                        var value1 = imm1 ? _memory[ip + 1] : _memory[_memory[ip + 1]];
+                        var value2 = imm2 ? _memory[ip + 2] : _memory[_memory[ip + 2]];
+                        _memory[_memory[ip + 3]] = value1 < value2 ? 1 : 0;
+                        ip += 4;
+                        break;
+                    }
+                    case 8:
+                    {
+                        var value1 = imm1 ? _memory[ip + 1] : _memory[_memory[ip + 1]];
+                        var value2 = imm2 ? _memory[ip + 2] : _memory[_memory[ip + 2]];
+                        _memory[_memory[ip + 3]] = value1 == value2 ? 1 : 0;
+                        ip += 4;
+                        break;
+                    }
                     case 99:
                         return;
                     default:
