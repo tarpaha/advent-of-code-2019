@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Utils
 {
@@ -6,6 +7,7 @@ namespace Utils
     {
         private int[] _program;
         private int[] _memory;
+        private Queue<int> _input;
 
         public void LoadProgram(int[] data)
         {
@@ -36,6 +38,11 @@ namespace Utils
             return _memory;
         }
 
+        public void SetInput(IEnumerable<int> data)
+        {
+            _input = new Queue<int>(data);
+        }
+
         public void Execute()
         {
             var ip = 0;
@@ -59,6 +66,13 @@ namespace Utils
                         var parameter3 = _memory[ip + 3];
                         _memory[parameter3] = _memory[parameter1] * _memory[parameter2];
                         ip += 4;
+                        break;
+                    }
+                    case 3:
+                    {
+                        var parameter = _memory[ip + 1];
+                        _memory[parameter] = _input.Dequeue();
+                        ip += 2;
                         break;
                     }
                     case 99:

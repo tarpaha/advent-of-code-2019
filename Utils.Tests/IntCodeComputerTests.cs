@@ -47,6 +47,16 @@ namespace Utils.Tests
             return Enumerable.Repeat(0, length).Select(_ => _random.Next()).ToArray();
         }
 
+        [TestCase("5", "3,0,99", "5,0,99")]
+        [TestCase("12,34", "3,5,3,6,99,0,0", "3,5,3,6,99,12,34")]
+        public void TestInput(string inputStr, string programStr, string memoryStr)
+        {
+            _computer.LoadProgram(Parse(programStr));
+            _computer.SetInput(Parse(inputStr));
+            _computer.Execute();
+            Assert.That(_computer.GetMemory(), Is.EquivalentTo(Parse(memoryStr)));
+        }
+        
         [TestCase("1,0,0,0,99", "2,0,0,0,99")]
         [TestCase("2,3,0,3,99", "2,3,0,6,99")]
         [TestCase("2,4,4,5,99,0", "2,4,4,5,99,9801")]
