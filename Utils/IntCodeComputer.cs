@@ -9,7 +9,7 @@ namespace Utils
         private int[] _memory;
         
         private Queue<int> _input;
-        private readonly Stack<int> _output = new Stack<int>();
+        private readonly List<int> _output = new List<int>();
 
         public void LoadProgram(int[] data)
         {
@@ -91,7 +91,7 @@ namespace Utils
                     case 4:
                     {
                         var value = imm1 ? _memory[ip + 1] : _memory[_memory[ip + 1]];
-                        _output.Push(value);
+                        _output.Add(value);
                         ip += 2;
                         break;
                     }
