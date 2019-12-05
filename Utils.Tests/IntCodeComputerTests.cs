@@ -55,6 +55,9 @@ namespace Utils.Tests
         [TestCase("12,34", "3,5,3,6,99,0,0", "3,5,3,6,99,12,34", "")]
         [TestCase("", "4,0,99", "4,0,99", "4")]
         [TestCase("", "4,9,4,8,4,7,99,1,2,3", "4,9,4,8,4,7,99,1,2,3", "3,2,1")]
+        [TestCase("", "1002,4,3,4,33,99", "1002,4,3,4,99,99", "")]
+        [TestCase("", "104,42,99", "104,42,99", "42")]
+        [TestCase("", "1101,100,-1,4,0", "1101,100,-1,4,99", "")]
         public void TestExecution(string inputStr, string programStr, string memoryStr, string outputStr)
         {
             var computer = new IntCodeComputer();

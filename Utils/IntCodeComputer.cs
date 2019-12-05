@@ -57,37 +57,41 @@ namespace Utils
             var ip = 0;
             while (true)
             {
-                switch (_memory[ip])
+                var instruction = _memory[ip];
+                var opCode = instruction % 100;
+
+                var mode = instruction / 100;
+                var imm1 = mode % 10 != 0; mode /= 10;
+                var imm2 = mode % 10 != 0;
+                
+                switch (opCode)
                 {
                     case 1:
                     {
-                        var parameter1 = _memory[ip + 1];
-                        var parameter2 = _memory[ip + 2];
-                        var parameter3 = _memory[ip + 3];
-                        _memory[parameter3] = _memory[parameter1] + _memory[parameter2];
+                        var value1 = imm1 ? _memory[ip + 1] : _memory[_memory[ip + 1]];
+                        var value2 = imm2 ? _memory[ip + 2] : _memory[_memory[ip + 2]];
+                        _memory[_memory[ip + 3]] = value1 + value2;
                         ip += 4;
                         break;
                     }
                     case 2:
                     {
-                        var parameter1 = _memory[ip + 1];
-                        var parameter2 = _memory[ip + 2];
-                        var parameter3 = _memory[ip + 3];
-                        _memory[parameter3] = _memory[parameter1] * _memory[parameter2];
+                        var value1 = imm1 ? _memory[ip + 1] : _memory[_memory[ip + 1]];
+                        var value2 = imm2 ? _memory[ip + 2] : _memory[_memory[ip + 2]];
+                        _memory[_memory[ip + 3]] = value1 * value2;
                         ip += 4;
                         break;
                     }
                     case 3:
                     {
-                        var parameter = _memory[ip + 1];
-                        _memory[parameter] = _input.Dequeue();
+                        _memory[_memory[ip + 1]] = _input.Dequeue();
                         ip += 2;
                         break;
                     }
                     case 4:
                     {
-                        var parameter = _memory[ip + 1];
-                        _output.Push(_memory[parameter]);
+                        var value = imm1 ? _memory[ip + 1] : _memory[_memory[ip + 1]];
+                        _output.Push(value);
                         ip += 2;
                         break;
                     }
