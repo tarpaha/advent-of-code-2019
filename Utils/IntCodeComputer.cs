@@ -7,7 +7,9 @@ namespace Utils
     {
         private int[] _program;
         private int[] _memory;
+        
         private Queue<int> _input;
+        private readonly Stack<int> _output = new Stack<int>();
 
         public void LoadProgram(int[] data)
         {
@@ -43,8 +45,15 @@ namespace Utils
             _input = new Queue<int>(data);
         }
 
+        public IEnumerable<int> GetOutput()
+        {
+            return _output.ToArray();
+        }
+
         public void Execute()
         {
+            _output.Clear();
+            
             var ip = 0;
             while (true)
             {
@@ -72,6 +81,13 @@ namespace Utils
                     {
                         var parameter = _memory[ip + 1];
                         _memory[parameter] = _input.Dequeue();
+                        ip += 2;
+                        break;
+                    }
+                    case 4:
+                    {
+                        var parameter = _memory[ip + 1];
+                        _output.Push(_memory[parameter]);
                         ip += 2;
                         break;
                     }

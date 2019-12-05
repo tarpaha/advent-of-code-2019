@@ -56,6 +56,18 @@ namespace Utils.Tests
             _computer.Execute();
             Assert.That(_computer.GetMemory(), Is.EquivalentTo(Parse(memoryStr)));
         }
+
+        [TestCase("4,0,99", "4")]
+        [TestCase("4,9,4,8,4,7,99,1,2,3", "3,2,1")]
+        public void TestOutput(string programStr, string outputStr)
+        {
+            _computer.LoadProgram(Parse(programStr));
+            _computer.Execute();
+            Assert.That(_computer.GetOutput(), Is.EquivalentTo(Parse(outputStr)));
+            _computer.LoadProgram(Parse("1,0,0,0,99"));
+            _computer.Execute();
+            Assert.That(_computer.GetOutput(), Is.Empty);
+        }
         
         [TestCase("1,0,0,0,99", "2,0,0,0,99")]
         [TestCase("2,3,0,3,99", "2,3,0,6,99")]
