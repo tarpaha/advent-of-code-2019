@@ -23,5 +23,10 @@ namespace Day_2019_12_06
             _children.Add(child);
             child._parent = this;
         }
+
+        public override string ToString()
+        {
+            return $"{_name}";
+        }
     }
 }
