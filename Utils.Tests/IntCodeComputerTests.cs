@@ -24,7 +24,7 @@ namespace Utils.Tests
             _computer.LoadProgram(data);
             _computer.SetMemory(0, _computer.GetMemory(0) + 1);
             Assert.That(_computer.GetMemory(), Is.Not.EquivalentTo(data));
-            _computer.RestoreMemory();
+            _computer.Reset();
             Assert.That(_computer.GetMemory(), Is.EquivalentTo(data));
         }
 

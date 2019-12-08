@@ -28,7 +28,7 @@ namespace Day_2019_12_05.App
 
         public int SolvePart1()
         {
-            _computer.RestoreMemory();
+            _computer.Reset();
             _computer.SetInput(new[] {1});
             _computer.Execute();
             return _computer.GetOutput().Last();
@@ -36,7 +36,7 @@ namespace Day_2019_12_05.App
 
         public int SolvePart2()
         {
-            _computer.RestoreMemory();
+            _computer.Reset();
             _computer.SetInput(new[] {5});
             _computer.Execute();
             return _computer.GetOutput().Last();

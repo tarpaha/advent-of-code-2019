@@ -24,7 +24,7 @@ namespace Day_2019_12_07
                 var data = 0;
                 for (var i = 0; i < 5; i++)
                 {
-                    computers[i].RestoreMemory();
+                    computers[i].Reset();
                     computers[i].SetInput(new [] { permutation.ElementAt(i), data });
                     computers[i].Execute();
                     data = computers[i].GetOutput().First();

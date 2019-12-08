@@ -7,6 +7,8 @@ namespace Utils
     {
         private int[] _program;
         private int[] _memory;
+
+        private int _ip;
         
         private Queue<int> _input;
         private readonly List<int> _output = new List<int>();
@@ -17,12 +19,15 @@ namespace Utils
             _memory = new int[data.Length];
             
             Array.Copy(data, _program, data.Length);
-            RestoreMemory();
+            Reset();
         }
 
-        public void RestoreMemory()
+        public void Reset()
         {
             Array.Copy(_program, _memory, _program.Length);
+            _ip = 0;
+            _input = new Queue<int>();
+            _output.Clear();
         }
 
         public void SetMemory(int offset, int value)
@@ -52,12 +57,9 @@ namespace Utils
 
         public void Execute()
         {
-            _output.Clear();
-            
-            var ip = 0;
             while (true)
             {
-                var instruction = _memory[ip];
+                var instruction = _memory[_ip];
                 var opCode = instruction % 100;
 
                 var mode = instruction / 100;
@@ -68,67 +70,67 @@ namespace Utils
                 {
                     case 1:
                     {
-                        var value1 = imm1 ? _memory[ip + 1] : _memory[_memory[ip + 1]];
-                        var value2 = imm2 ? _memory[ip + 2] : _memory[_memory[ip + 2]];
-                        _memory[_memory[ip + 3]] = value1 + value2;
-                        ip += 4;
+                        var value1 = imm1 ? _memory[_ip + 1] : _memory[_memory[_ip + 1]];
+                        var value2 = imm2 ? _memory[_ip + 2] : _memory[_memory[_ip + 2]];
+                        _memory[_memory[_ip + 3]] = value1 + value2;
+                        _ip += 4;
                         break;
                     }
                     case 2:
                     {
-                        var value1 = imm1 ? _memory[ip + 1] : _memory[_memory[ip + 1]];
-                        var value2 = imm2 ? _memory[ip + 2] : _memory[_memory[ip + 2]];
-                        _memory[_memory[ip + 3]] = value1 * value2;
-                        ip += 4;
+                        var value1 = imm1 ? _memory[_ip + 1] : _memory[_memory[_ip + 1]];
+                        var value2 = imm2 ? _memory[_ip + 2] : _memory[_memory[_ip + 2]];
+                        _memory[_memory[_ip + 3]] = value1 * value2;
+                        _ip += 4;
                         break;
                     }
                     case 3:
                     {
-                        _memory[_memory[ip + 1]] = _input.Dequeue();
-                        ip += 2;
+                        _memory[_memory[_ip + 1]] = _input.Dequeue();
+                        _ip += 2;
                         break;
                     }
                     case 4:
                     {
-                        var value = imm1 ? _memory[ip + 1] : _memory[_memory[ip + 1]];
+                        var value = imm1 ? _memory[_ip + 1] : _memory[_memory[_ip + 1]];
                         _output.Add(value);
-                        ip += 2;
+                        _ip += 2;
                         break;
                     }
                     case 5:
                     {
-                        var value1 = imm1 ? _memory[ip + 1] : _memory[_memory[ip + 1]];
-                        var value2 = imm2 ? _memory[ip + 2] : _memory[_memory[ip + 2]];
+                        var value1 = imm1 ? _memory[_ip + 1] : _memory[_memory[_ip + 1]];
+                        var value2 = imm2 ? _memory[_ip + 2] : _memory[_memory[_ip + 2]];
                         if (value1 != 0)
-                            ip = value2;
+                            _ip = value2;
                         else
-                            ip += 3;
+                            _ip += 3;
                         break;
                     }
                     case 6:
                     {
-                        var value1 = imm1 ? _memory[ip + 1] : _memory[_memory[ip + 1]];
-                        var value2 = imm2 ? _memory[ip + 2] : _memory[_memory[ip + 2]];
+                        var value1 = imm1 ? _memory[_ip + 1] : _memory[_memory[_ip + 1]];
+                        var value2 = imm2 ? _memory[_ip + 2] : _memory[_memory[_ip + 2]];
                         if (value1 == 0)
-                            ip = value2;
+                            _ip = value2;
                         else
-                            ip += 3;
+                            _ip += 3;
                         break;
                     }
                     case 7:
                     {
-                        var value1 = imm1 ? _memory[ip + 1] : _memory[_memory[ip + 1]];
-                        var value2 = imm2 ? _memory[ip + 2] : _memory[_memory[ip + 2]];
-                        _memory[_memory[ip + 3]] = value1 < value2 ? 1 : 0;
-                        ip += 4;
+                        var value1 = imm1 ? _memory[_ip + 1] : _memory[_memory[_ip + 1]];
+                        var value2 = imm2 ? _memory[_ip + 2] : _memory[_memory[_ip + 2]];
+                        _memory[_memory[_ip + 3]] = value1 < value2 ? 1 : 0;
+                        _ip += 4;
                         break;
                     }
                     case 8:
                     {
-                        var value1 = imm1 ? _memory[ip + 1] : _memory[_memory[ip + 1]];
-                        var value2 = imm2 ? _memory[ip + 2] : _memory[_memory[ip + 2]];
-                        _memory[_memory[ip + 3]] = value1 == value2 ? 1 : 0;
-                        ip += 4;
+                        var value1 = imm1 ? _memory[_ip + 1] : _memory[_memory[_ip + 1]];
+                        var value2 = imm2 ? _memory[_ip + 2] : _memory[_memory[_ip + 2]];
+                        _memory[_memory[_ip + 3]] = value1 == value2 ? 1 : 0;
+                        _ip += 4;
                         break;
                     }
                     case 99:

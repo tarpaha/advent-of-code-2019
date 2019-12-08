@@ -27,7 +27,7 @@ namespace Day_2019_12_02.App
 
         public int SolvePart1()
         {
-            _computer.RestoreMemory();
+            _computer.Reset();
             _computer.SetMemory(1, 12);
             _computer.SetMemory(2, 2);
             _computer.Execute();
@@ -40,7 +40,7 @@ namespace Day_2019_12_02.App
             {
                 for (var verb = 0; verb < 100; verb++)
                 {
-                    _computer.RestoreMemory();
+                    _computer.Reset();
                     _computer.SetMemory(1, noun);
                     _computer.SetMemory(2, verb);
                     _computer.Execute();
@@ -55,7 +55,7 @@ namespace Day_2019_12_02.App
 
         private static void SolvePart1(Computer computer)
         {
-            computer.RestoreMemory();
+            computer.Reset();
             computer.SetMemory(1, 12);
             computer.SetMemory(2, 2);
             computer.Execute();
@@ -68,7 +68,7 @@ namespace Day_2019_12_02.App
             {
                 for (var verb = 0; verb < 100; verb++)
                 {
-                    computer.RestoreMemory();
+                    computer.Reset();
                     computer.SetMemory(1, noun);
                     computer.SetMemory(2, verb);
                     computer.Execute();
