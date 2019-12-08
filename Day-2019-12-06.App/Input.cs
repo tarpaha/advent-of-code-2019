@@ -1,3 +1,10 @@
+﻿namespace Day_2019_12_06.App
+{
+    public static class Input
+    {
+        public static string GetData()
+        {
+            return @"
 X9V)9CS
 5S8)T3W
 R5J)B4C
@@ -1848,3 +1855,7 @@ CMC)KTM
 DTW)VY7
 X3S)F1H
 RHL)9Y9
+";
+        }
+    }
+}
