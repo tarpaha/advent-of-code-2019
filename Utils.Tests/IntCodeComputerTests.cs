@@ -77,11 +77,14 @@ namespace Utils.Tests
         {
             var computer = new IntCodeComputer();
             computer.LoadProgram(Parse(programStr));
-            computer.SetInput(Parse(inputStr));
+            foreach (var input in Parse(inputStr))
+                computer.AddInput(input);
+            var output = new BufferOutput();
+            computer.SetOutput(output);
             computer.Run();
             if(memoryStr != "-")
                 Assert.That(computer.GetMemory(), Is.EquivalentTo(Parse(memoryStr)));
-            Assert.That(computer.GetOutput(), Is.EquivalentTo(Parse(outputStr)));
+            Assert.That(output.Data, Is.EquivalentTo(Parse(outputStr)));
         }
 
         private static int[] Parse(string str)

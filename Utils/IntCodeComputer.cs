@@ -1,9 +1,25 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 
 namespace Utils
 {
-    public class IntCodeComputer
+    public interface IDataReceiver
+    {
+        void AddInput(int value);
+    }
+
+    public class BufferOutput : IDataReceiver
+    {
+        public IEnumerable<int> Data => _data;
+        private readonly List<int> _data = new List<int>();
+        public void AddInput(int value)
+        {
+            _data.Add(value);
+        }
+    }
+    
+    public class IntCodeComputer : IDataReceiver
     {
         private int[] _program;
         private int[] _memory;
@@ -11,7 +27,16 @@ namespace Utils
         private int _ip;
         
         private Queue<int> _input;
-        private readonly List<int> _output = new List<int>();
+        private IDataReceiver _output;
+
+        public enum State
+        {
+            Ready,
+            Running,
+            WaitingForInput,
+            Halt
+        }
+        public State CurrentState { get; private set; }
 
         public void LoadProgram(int[] data)
         {
@@ -27,7 +52,7 @@ namespace Utils
             Array.Copy(_program, _memory, _program.Length);
             _ip = 0;
             _input = new Queue<int>();
-            _output.Clear();
+            CurrentState = State.Ready;
         }
 
         public void SetMemory(int offset, int value)
@@ -45,18 +70,19 @@ namespace Utils
             return _memory;
         }
 
-        public void SetInput(IEnumerable<int> data)
+        public void AddInput(int value)
         {
-            _input = new Queue<int>(data);
+            _input.Enqueue(value);
         }
-
-        public IEnumerable<int> GetOutput()
+        
+        public void SetOutput(IDataReceiver output)
         {
-            return _output.ToArray();
+            _output = output;
         }
 
         public void Run()
         {
+            CurrentState = State.Running;
             while (true)
             {
                 var instruction = _memory[_ip];
@@ -86,6 +112,11 @@ namespace Utils
                     }
                     case 3:
                     {
+                        if (_input.Count <= 0)
+                        {
+                            CurrentState = State.WaitingForInput;
+                            return;
+                        }
                         _memory[_memory[_ip + 1]] = _input.Dequeue();
                         _ip += 2;
                         break;
@@ -93,7 +124,7 @@ namespace Utils
                     case 4:
                     {
                         var value = imm1 ? _memory[_ip + 1] : _memory[_memory[_ip + 1]];
-                        _output.Add(value);
+                        _output.AddInput(value);
                         _ip += 2;
                         break;
                     }
@@ -134,11 +165,17 @@ namespace Utils
                         break;
                     }
                     case 99:
+                        CurrentState = State.Halt;
                         return;
                     default:
                         throw new InvalidOperationException();
                 }
             }
+        }
+
+        public override string ToString()
+        {
+            return $"[{CurrentState}]";
         }
     }
 }

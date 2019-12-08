@@ -28,18 +28,22 @@ namespace Day_2019_12_05.App
 
         public int SolvePart1()
         {
+            var output = new BufferOutput();
             _computer.Reset();
-            _computer.SetInput(new[] {1});
+            _computer.AddInput(1);
+            _computer.SetOutput(output);
             _computer.Run();
-            return _computer.GetOutput().Last();
+            return output.Data.Last();
         }
 
         public int SolvePart2()
         {
+            var output = new BufferOutput();
             _computer.Reset();
-            _computer.SetInput(new[] {5});
+            _computer.AddInput(5);
+            _computer.SetOutput(output);
             _computer.Run();
-            return _computer.GetOutput().Last();
+            return output.Data.Last();
         }
     }
 }
