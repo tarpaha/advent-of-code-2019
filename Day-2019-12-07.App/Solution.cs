@@ -30,7 +30,7 @@ namespace Day_2019_12_07.App
 
         public int SolvePart2()
         {
-            return 0;
+            return Circuit2.GetHighestSignal(_program);
         }
     }
 }

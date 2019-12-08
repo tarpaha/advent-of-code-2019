@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Utils
 {
     public interface IDataReceiver
     {
+        IEnumerable<int> Data { get; }
         void AddInput(int value);
     }
 
@@ -74,7 +76,13 @@ namespace Utils
         {
             _input.Enqueue(value);
         }
+
+        public int GetInput()
+        {
+            return new List<int>(_input).First();
+        }
         
+        public IEnumerable<int> Data => new List<int>(_input);
         public void SetOutput(IDataReceiver output)
         {
             _output = output;
