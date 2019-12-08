@@ -26,7 +26,7 @@ namespace Day_2019_12_07
                 {
                     computers[i].Reset();
                     computers[i].SetInput(new [] { permutation.ElementAt(i), data });
-                    computers[i].Execute();
+                    computers[i].Run();
                     data = computers[i].GetOutput().First();
                 }
                 if (data > highestSignal)

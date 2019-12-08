@@ -55,7 +55,7 @@ namespace Utils
             return _output.ToArray();
         }
 
-        public void Execute()
+        public void Run()
         {
             while (true)
             {

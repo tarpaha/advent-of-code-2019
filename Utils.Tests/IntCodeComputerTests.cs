@@ -78,7 +78,7 @@ namespace Utils.Tests
             var computer = new IntCodeComputer();
             computer.LoadProgram(Parse(programStr));
             computer.SetInput(Parse(inputStr));
-            computer.Execute();
+            computer.Run();
             if(memoryStr != "-")
                 Assert.That(computer.GetMemory(), Is.EquivalentTo(Parse(memoryStr)));
             Assert.That(computer.GetOutput(), Is.EquivalentTo(Parse(outputStr)));

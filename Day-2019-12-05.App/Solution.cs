@@ -30,7 +30,7 @@ namespace Day_2019_12_05.App
         {
             _computer.Reset();
             _computer.SetInput(new[] {1});
-            _computer.Execute();
+            _computer.Run();
             return _computer.GetOutput().Last();
         }
 
@@ -38,7 +38,7 @@ namespace Day_2019_12_05.App
         {
             _computer.Reset();
             _computer.SetInput(new[] {5});
-            _computer.Execute();
+            _computer.Run();
             return _computer.GetOutput().Last();
         }
     }

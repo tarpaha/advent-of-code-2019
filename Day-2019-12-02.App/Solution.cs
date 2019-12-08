@@ -30,7 +30,7 @@ namespace Day_2019_12_02.App
             _computer.Reset();
             _computer.SetMemory(1, 12);
             _computer.SetMemory(2, 2);
-            _computer.Execute();
+            _computer.Run();
             return _computer.GetMemory(0);
         }
 
@@ -43,7 +43,7 @@ namespace Day_2019_12_02.App
                     _computer.Reset();
                     _computer.SetMemory(1, noun);
                     _computer.SetMemory(2, verb);
-                    _computer.Execute();
+                    _computer.Run();
                     if (_computer.GetMemory(0) == 19690720)
                     {
                         return 100 * noun + verb;
@@ -58,7 +58,7 @@ namespace Day_2019_12_02.App
             computer.Reset();
             computer.SetMemory(1, 12);
             computer.SetMemory(2, 2);
-            computer.Execute();
+            computer.Run();
             Console.WriteLine($"Part1: {computer.GetMemory(0)}");
         }
 
@@ -71,7 +71,7 @@ namespace Day_2019_12_02.App
                     computer.Reset();
                     computer.SetMemory(1, noun);
                     computer.SetMemory(2, verb);
-                    computer.Execute();
+                    computer.Run();
                     if (computer.GetMemory(0) == 19690720)
                     {
                         Console.WriteLine($"Part2: {100 * noun + verb}");
