@@ -1,3 +1,10 @@
+namespace Day_2019_12_01.App
+{
+    public static class Input
+    {
+        public static string GetData()
+        {
+            return @"
 73365
 84016
 98122
@@ -98,3 +105,7 @@
 92440
 115184
 142447
+";
+        }
+    }
+}
