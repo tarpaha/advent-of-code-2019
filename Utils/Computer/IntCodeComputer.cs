@@ -70,93 +70,98 @@ namespace Utils.Computer
 
         public void Run()
         {
-            CurrentState = State.Running;
-            while (true)
+            checked
             {
-                var instruction = _memory.Get(_ip);
-                var opCode = instruction % 100;
-
-                var mode = instruction / 100;
-                var imm1 = mode % 10 != 0; mode /= 10;
-                var imm2 = mode % 10 != 0;
-                
-                switch (opCode)
+                CurrentState = State.Running;
+                while (true)
                 {
-                    case 1:
+                    var instruction = _memory.Get(_ip);
+                    var opCode = instruction % 100;
+
+                    var mode = instruction / 100;
+                    var imm1 = mode % 10 != 0;
+                    mode /= 10;
+                    var imm2 = mode % 10 != 0;
+
+                    switch (opCode)
                     {
-                        var value1 = imm1 ? _memory.Get(_ip + 1) : _memory.Get(_memory.Get(_ip + 1));
-                        var value2 = imm2 ? _memory.Get(_ip + 2) : _memory.Get(_memory.Get(_ip + 2));
-                        _memory.Set(_memory.Get(_ip + 3), value1 + value2);
-                        _ip += 4;
-                        break;
-                    }
-                    case 2:
-                    {
-                        var value1 = imm1 ? _memory.Get(_ip + 1) : _memory.Get(_memory.Get(_ip + 1));
-                        var value2 = imm2 ? _memory.Get(_ip + 2) : _memory.Get(_memory.Get(_ip + 2));
-                        _memory.Set(_memory.Get(_ip + 3), value1 * value2);
-                        _ip += 4;
-                        break;
-                    }
-                    case 3:
-                    {
-                        if (_input.Count <= 0)
+                        case 1:
                         {
-                            CurrentState = State.WaitingForInput;
-                            return;
+                            var value1 = imm1 ? _memory.Get(_ip + 1) : _memory.Get(_memory.Get(_ip + 1));
+                            var value2 = imm2 ? _memory.Get(_ip + 2) : _memory.Get(_memory.Get(_ip + 2));
+                            _memory.Set(_memory.Get(_ip + 3), value1 + value2);
+                            _ip += 4;
+                            break;
                         }
-                        _memory.Set(_memory.Get(_ip + 1), _input.Dequeue());
-                        _ip += 2;
-                        break;
+                        case 2:
+                        {
+                            var value1 = imm1 ? _memory.Get(_ip + 1) : _memory.Get(_memory.Get(_ip + 1));
+                            var value2 = imm2 ? _memory.Get(_ip + 2) : _memory.Get(_memory.Get(_ip + 2));
+                            _memory.Set(_memory.Get(_ip + 3), value1 * value2);
+                            _ip += 4;
+                            break;
+                        }
+                        case 3:
+                        {
+                            if (_input.Count <= 0)
+                            {
+                                CurrentState = State.WaitingForInput;
+                                return;
+                            }
+
+                            _memory.Set(_memory.Get(_ip + 1), _input.Dequeue());
+                            _ip += 2;
+                            break;
+                        }
+                        case 4:
+                        {
+                            var value = imm1 ? _memory.Get(_ip + 1) : _memory.Get(_memory.Get(_ip + 1));
+                            _output.AddInput(value);
+                            _ip += 2;
+                            break;
+                        }
+                        case 5:
+                        {
+                            var value1 = imm1 ? _memory.Get(_ip + 1) : _memory.Get(_memory.Get(_ip + 1));
+                            var value2 = imm2 ? _memory.Get(_ip + 2) : _memory.Get(_memory.Get(_ip + 2));
+                            if (value1 != 0)
+                                _ip = value2;
+                            else
+                                _ip += 3;
+                            break;
+                        }
+                        case 6:
+                        {
+                            var value1 = imm1 ? _memory.Get(_ip + 1) : _memory.Get(_memory.Get(_ip + 1));
+                            var value2 = imm2 ? _memory.Get(_ip + 2) : _memory.Get(_memory.Get(_ip + 2));
+                            if (value1 == 0)
+                                _ip = value2;
+                            else
+                                _ip += 3;
+                            break;
+                        }
+                        case 7:
+                        {
+                            var value1 = imm1 ? _memory.Get(_ip + 1) : _memory.Get(_memory.Get(_ip + 1));
+                            var value2 = imm2 ? _memory.Get(_ip + 2) : _memory.Get(_memory.Get(_ip + 2));
+                            _memory.Set(_memory.Get(_ip + 3), value1 < value2 ? 1 : 0);
+                            _ip += 4;
+                            break;
+                        }
+                        case 8:
+                        {
+                            var value1 = imm1 ? _memory.Get(_ip + 1) : _memory.Get(_memory.Get(_ip + 1));
+                            var value2 = imm2 ? _memory.Get(_ip + 2) : _memory.Get(_memory.Get(_ip + 2));
+                            _memory.Set(_memory.Get(_ip + 3), value1 == value2 ? 1 : 0);
+                            _ip += 4;
+                            break;
+                        }
+                        case 99:
+                            CurrentState = State.Halt;
+                            return;
+                        default:
+                            throw new InvalidOperationException();
                     }
-                    case 4:
-                    {
-                        var value = imm1 ? _memory.Get(_ip + 1) : _memory.Get(_memory.Get(_ip + 1));
-                        _output.AddInput(value);
-                        _ip += 2;
-                        break;
-                    }
-                    case 5:
-                    {
-                        var value1 = imm1 ? _memory.Get(_ip + 1) : _memory.Get(_memory.Get(_ip + 1));
-                        var value2 = imm2 ? _memory.Get(_ip + 2) : _memory.Get(_memory.Get(_ip + 2));
-                        if (value1 != 0)
-                            _ip = value2;
-                        else
-                            _ip += 3;
-                        break;
-                    }
-                    case 6:
-                    {
-                        var value1 = imm1 ? _memory.Get(_ip + 1) : _memory.Get(_memory.Get(_ip + 1));
-                        var value2 = imm2 ? _memory.Get(_ip + 2) : _memory.Get(_memory.Get(_ip + 2));
-                        if (value1 == 0)
-                            _ip = value2;
-                        else
-                            _ip += 3;
-                        break;
-                    }
-                    case 7:
-                    {
-                        var value1 = imm1 ? _memory.Get(_ip + 1) : _memory.Get(_memory.Get(_ip + 1));
-                        var value2 = imm2 ? _memory.Get(_ip + 2) : _memory.Get(_memory.Get(_ip + 2));
-                        _memory.Set(_memory.Get(_ip + 3), value1 < value2 ? 1 : 0);
-                        _ip += 4;
-                        break;
-                    }
-                    case 8:
-                    {
-                        var value1 = imm1 ? _memory.Get(_ip + 1) : _memory.Get(_memory.Get(_ip + 1));
-                        var value2 = imm2 ? _memory.Get(_ip + 2) : _memory.Get(_memory.Get(_ip + 2));
-                        _memory.Set(_memory.Get(_ip + 3), value1 == value2 ? 1 : 0);
-                        _ip += 4;
-                        break;
-                    }
-                    case 99:
-                        CurrentState = State.Halt;
-                        return;
-                    default:
-                        throw new InvalidOperationException();
                 }
             }
         }
