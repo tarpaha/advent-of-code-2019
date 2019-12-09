@@ -35,6 +35,7 @@ namespace Utils.Computer
         {
             _memory.InitFrom(_program);
             _ip = 0;
+            _baseOffset = 0;
             _input = new Queue<long>();
             CurrentState = State.Ready;
         }
@@ -78,7 +79,25 @@ namespace Utils.Computer
                 case 1:
                     return _memory.Get(offset);
                 case 2:
-                    return _memory.Get(_memory.Get(offset) + _baseOffset);
+                    return _memory.Get(_baseOffset + _memory.Get(offset));
+                default:
+                    throw new Exception();
+            }
+        }
+
+        private void SetValue(long mode, long offset, long value)
+        {
+            switch (mode)
+            {
+                case 0:
+                    _memory.Set(_memory.Get(offset), value);
+                    break;
+                case 1:
+                    _memory.Set(offset, value);
+                    break;
+                case 2:
+                    _memory.Set(_baseOffset + _memory.Get(offset), value);
+                    break;
                 default:
                     throw new Exception();
             }
@@ -99,6 +118,9 @@ namespace Utils.Computer
                     instruction /= 10;
                     
                     var mode2 = instruction % 10;
+                    instruction /= 10;
+                    
+                    var mode3 = instruction % 10;
 
                     switch (opCode)
                     {
@@ -106,7 +128,7 @@ namespace Utils.Computer
                         {
                             var value1 = GetValue(mode1, _ip + 1);
                             var value2 = GetValue(mode2, _ip + 2);
-                            _memory.Set(_memory.Get(_ip + 3), value1 + value2);
+                            SetValue(mode3, _ip + 3, value1 + value2);
                             _ip += 4;
                             break;
                         }
@@ -114,7 +136,7 @@ namespace Utils.Computer
                         {
                             var value1 = GetValue(mode1, _ip + 1);
                             var value2 = GetValue(mode2, _ip + 2);
-                            _memory.Set(_memory.Get(_ip + 3), value1 * value2);
+                            SetValue(mode3, _ip + 3, value1 * value2);
                             _ip += 4;
                             break;
                         }
@@ -125,7 +147,7 @@ namespace Utils.Computer
                                 CurrentState = State.WaitingForInput;
                                 return;
                             }
-                            _memory.Set(_memory.Get(_ip + 1), _input.Dequeue());
+                            SetValue(mode1, _ip + 1, _input.Dequeue());
                             _ip += 2;
                             break;
                         }
@@ -160,7 +182,7 @@ namespace Utils.Computer
                         {
                             var value1 = GetValue(mode1, _ip + 1);
                             var value2 = GetValue(mode2, _ip + 2);
-                            _memory.Set(_memory.Get(_ip + 3), value1 < value2 ? 1 : 0);
+                            SetValue(mode3, _ip + 3, value1 < value2 ? 1 : 0);
                             _ip += 4;
                             break;
                         }
@@ -168,7 +190,7 @@ namespace Utils.Computer
                         {
                             var value1 = GetValue(mode1, _ip + 1);
                             var value2 = GetValue(mode2, _ip + 2);
-                            _memory.Set(_memory.Get(_ip + 3), value1 == value2 ? 1 : 0);
+                            SetValue(mode3, _ip + 3, value1 == value2 ? 1 : 0);
                             _ip += 4;
                             break;
                         }
