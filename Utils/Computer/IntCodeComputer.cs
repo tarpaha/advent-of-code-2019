@@ -108,7 +108,6 @@ namespace Utils.Computer
                                 CurrentState = State.WaitingForInput;
                                 return;
                             }
-
                             _memory.Set(_memory.Get(_ip + 1), _input.Dequeue());
                             _ip += 2;
                             break;

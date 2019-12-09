@@ -21,7 +21,7 @@ namespace Utils.Computer
 
         public long Get(long offset)
         {
-            return _data[offset];
+            return _data.TryGetValue(offset, out var value) ? value : 0;
         }
 
         public long[] GetPlain()
