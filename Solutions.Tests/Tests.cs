@@ -22,9 +22,9 @@ namespace Solutions.Tests
         }
 
         [TestCaseSource("SolutionsTestCases")]
-        public void Test(ISolution solution, int result1, object result2)
+        public void Test(ISolution solution, object result1, object result2)
         {
-            if(result1 != int.MinValue)
+            if(result1 != null)
                 Assert.That(solution.SolvePart1(), Is.EqualTo(result1));
             if(result2 != null)
                 Assert.That(solution.SolvePart2(), Is.EqualTo(result2));
