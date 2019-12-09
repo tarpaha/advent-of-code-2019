@@ -1,24 +1,9 @@
 ﻿using System;
-using System.Linq;
 using System.Collections.Generic;
+using System.Linq;
 
-namespace Utils
+namespace Utils.Computer
 {
-    public interface IDataReceiver
-    {
-        void AddInput(long value);
-    }
-
-    public class BufferOutput : IDataReceiver
-    {
-        public IEnumerable<long> Data => _data;
-        private readonly List<long> _data = new List<long>();
-        public void AddInput(long value)
-        {
-            _data.Add(value);
-        }
-    }
-    
     public class IntCodeComputer : IDataReceiver
     {
         private long[] _program;
