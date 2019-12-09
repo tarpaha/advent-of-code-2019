@@ -27,12 +27,12 @@ namespace Day_2019_12_06.App
             _planet2Name = "SAN";
         }
 
-        public int SolvePart1()
+        public object SolvePart1()
         {
             return LinksToParentCounter.Count(_planets);
         }
 
-        public int SolvePart2()
+        public object SolvePart2()
         {
             var planet1 = _planets.First(p => p.Name == _planet1Name);
             var planet2 = _planets.First(p => p.Name == _planet2Name);

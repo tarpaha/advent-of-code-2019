@@ -36,5 +36,14 @@ namespace Day_2019_12_08.Tests
                 Assert.That(image.GetNumDigitsInLayer(layerId, layerId), Is.EqualTo(width * height));
             }
         }
+
+        [TestCase("0222112222120000", 2, 2, "0110")]
+        public void GetVisibleImageTest(string dataStr, int width, int height, string visibleStr)
+        {
+            var data = dataStr.Select(ch => ch - '0').ToArray();
+            var visible = visibleStr.Select(ch => ch - '0').ToArray();
+            var image = new Image(data, width, height);
+            Assert.That(image.GetVisibleImage(), Is.EquivalentTo(visible));
+        }
     }
 }

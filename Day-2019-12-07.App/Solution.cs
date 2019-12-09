@@ -23,12 +23,12 @@ namespace Day_2019_12_07.App
                 .ToArray();
         }
 
-        public int SolvePart1()
+        public object SolvePart1()
         {
             return Circuit1.GetHighestSignal(_program);
         }
 
-        public int SolvePart2()
+        public object SolvePart2()
         {
             return Circuit2.GetHighestSignal(_program);
         }

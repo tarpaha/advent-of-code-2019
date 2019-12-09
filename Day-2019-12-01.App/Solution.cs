@@ -24,7 +24,7 @@ namespace Day_2019_12_01.App
                 .ToList();
         }
 
-        public int SolvePart1()
+        public object SolvePart1()
         {
             var solutionPart1 = new SolutionPart1();
             return _input
@@ -32,7 +32,7 @@ namespace Day_2019_12_01.App
                 .Sum();
         }
 
-        public int SolvePart2()
+        public object SolvePart2()
         {
             var solutionPart2 = new SolutionPart2();
             return _input

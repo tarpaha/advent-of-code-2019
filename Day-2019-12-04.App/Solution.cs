@@ -22,7 +22,7 @@ namespace Day_2019_12_04.App
             _max = 580769;
         }
 
-        public int SolvePart1()
+        public object SolvePart1()
         {
             /* One string solution
             Enumerable
@@ -35,7 +35,7 @@ namespace Day_2019_12_04.App
             return Solver.GetCorrectPasswordsFromRangeType(_min, _max, Password.IsCorrectType1);
         }
 
-        public int SolvePart2()
+        public object SolvePart2()
         {
             /* One string solution
             Enumerable

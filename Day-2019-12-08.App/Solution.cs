@@ -14,7 +14,8 @@ namespace Day_2019_12_08.App
             Console.WriteLine($"Part2: {solution.SolvePart2()}");
         }
 
-        private readonly int[] _data;
+        private readonly int _width; 
+        private readonly int _height; 
         private readonly Image _image;
 
         public Solution()
@@ -22,10 +23,12 @@ namespace Day_2019_12_08.App
             var data = Input.GetData()
                 .Select(ch => ch - '0')
                 .ToArray();
-            _image = new Image(data, 25, 6);
+            _width = 25;
+            _height = 6;
+            _image = new Image(data, _width, _height);
         }
 
-        public int SolvePart1()
+        public object SolvePart1()
         {
             var layerWithMinZeros = Enumerable.Range(0, _image.LayersCount)
                 .Select(id => (id, num: _image.GetNumDigitsInLayer(id, 0)))
@@ -35,9 +38,10 @@ namespace Day_2019_12_08.App
             return _image.GetNumDigitsInLayer(layerWithMinZeros, 1) * _image.GetNumDigitsInLayer(layerWithMinZeros, 2);
         }
 
-        public int SolvePart2()
+        public object SolvePart2()
         {
-            return 0;
+            var visible = _image.GetVisibleImage();
+            return string.Join("", visible);
         }
     }
 }

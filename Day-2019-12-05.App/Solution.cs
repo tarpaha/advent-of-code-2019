@@ -26,7 +26,7 @@ namespace Day_2019_12_05.App
             _computer.LoadProgram(program);
         }
 
-        public int SolvePart1()
+        public object SolvePart1()
         {
             var output = new BufferOutput();
             _computer.Reset();
@@ -36,7 +36,7 @@ namespace Day_2019_12_05.App
             return output.Data.Last();
         }
 
-        public int SolvePart2()
+        public object SolvePart2()
         {
             var output = new BufferOutput();
             _computer.Reset();

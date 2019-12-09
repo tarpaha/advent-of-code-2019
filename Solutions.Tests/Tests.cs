@@ -17,16 +17,16 @@ namespace Solutions.Tests
                 yield return new TestCaseData(new Day_2019_12_05.App.Solution(), 15097178, 1558663);
                 yield return new TestCaseData(new Day_2019_12_06.App.Solution(), 234446, 385);
                 yield return new TestCaseData(new Day_2019_12_07.App.Solution(), 366376, 21596786);
-                yield return new TestCaseData(new Day_2019_12_08.App.Solution(), 1485, int.MinValue);
+                yield return new TestCaseData(new Day_2019_12_08.App.Solution(), 1485, "111001000001100100101111010010100001001010100100001001010000100101100011100111001000011110101001000010100100001001010100100001001011110100101001010000");
             }
         }
 
         [TestCaseSource("SolutionsTestCases")]
-        public void Test(ISolution solution, int result1, int result2)
+        public void Test(ISolution solution, int result1, object result2)
         {
             if(result1 != int.MinValue)
                 Assert.That(solution.SolvePart1(), Is.EqualTo(result1));
-            if(result2 != int.MinValue)
+            if(result2 != null)
                 Assert.That(solution.SolvePart2(), Is.EqualTo(result2));
         }
     }

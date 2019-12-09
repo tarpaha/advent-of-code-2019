@@ -24,12 +24,12 @@ namespace Day_2019_12_03.App
             _wire1 = StepsParser.Parse(steps[1]);
         }
 
-        public int SolvePart1()
+        public object SolvePart1()
         {
             return IntersectionFinder.FindDistanceOfClosestToOrigin(_wire0, _wire1);
         }
 
-        public int SolvePart2()
+        public object SolvePart2()
         {
             return SignalMinimizer.FindMinDistanceToIntersection(_wire0, _wire1);
         }

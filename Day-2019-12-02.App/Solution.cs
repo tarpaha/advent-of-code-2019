@@ -25,7 +25,7 @@ namespace Day_2019_12_02.App
             _computer.LoadProgram(program);
         }
 
-        public int SolvePart1()
+        public object SolvePart1()
         {
             _computer.Reset();
             _computer.SetMemory(1, 12);
@@ -34,7 +34,7 @@ namespace Day_2019_12_02.App
             return _computer.GetMemory(0);
         }
 
-        public int SolvePart2()
+        public object SolvePart2()
         {
             for (var noun = 0; noun < 100; noun++)
             {

@@ -2,7 +2,7 @@ namespace Utils
 {
     public interface ISolution
     {
-        int SolvePart1();
-        int SolvePart2();
+        object SolvePart1();
+        object SolvePart2();
     }
 }
