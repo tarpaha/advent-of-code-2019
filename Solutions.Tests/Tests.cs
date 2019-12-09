@@ -18,6 +18,7 @@ namespace Solutions.Tests
                 yield return new TestCaseData(new Day_2019_12_06.App.Solution(), 234446, 385);
                 yield return new TestCaseData(new Day_2019_12_07.App.Solution(), 366376, 21596786);
                 yield return new TestCaseData(new Day_2019_12_08.App.Solution(), 1485, "111001000001100100101111010010100001001010100100001001010000100101100011100111001000011110101001000010100100001001010100100001001011110100101001010000");
+                yield return new TestCaseData(new Day_2019_12_09.App.Solution(), 2955820355, 46643);
             }
         }
 
