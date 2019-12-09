@@ -7,7 +7,7 @@ namespace Utils.Computer
     public class IntCodeComputer : IDataReceiver
     {
         private long[] _program;
-        private readonly IMemory _memory = new PlainBufferMemory();
+        private readonly IMemory _memory = new InfiniteMemory();
 
         private long _ip;
         
