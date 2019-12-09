@@ -17,6 +17,7 @@ namespace Solutions.Tests
                 yield return new TestCaseData(new Day_2019_12_05.App.Solution(), 15097178, 1558663);
                 yield return new TestCaseData(new Day_2019_12_06.App.Solution(), 234446, 385);
                 yield return new TestCaseData(new Day_2019_12_07.App.Solution(), 366376, 21596786);
+                yield return new TestCaseData(new Day_2019_12_08.App.Solution(), 1485, int.MinValue);
             }
         }
 
