@@ -19,7 +19,7 @@ namespace Day_2019_12_05.App
         {
             var program = Input.GetData()
                 .Split(',')
-                .Select(int.Parse)
+                .Select(long.Parse)
                 .ToArray();
             
             _computer = new Computer();

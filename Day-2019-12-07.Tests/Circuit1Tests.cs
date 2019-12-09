@@ -13,11 +13,11 @@ namespace Day_2019_12_07.Tests
             Assert.That(Circuit1.GetHighestSignal(Parse(programStr)), Is.EqualTo(highestSignal));
         }
         
-        private static int[] Parse(string str)
+        private static long[] Parse(string str)
         {
             return string.IsNullOrEmpty(str)
-                ? new int[0]
-                : str.Split(',').Select(int.Parse).ToArray();
+                ? new long[0]
+                : str.Split(',').Select(long.Parse).ToArray();
         }
     }
 }

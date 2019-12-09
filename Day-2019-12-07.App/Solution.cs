@@ -13,13 +13,13 @@ namespace Day_2019_12_07.App
             Console.WriteLine($"Part2: {solution.SolvePart2()}");
         }
 
-        private readonly int[] _program;
+        private readonly long[] _program;
 
         public Solution()
         {
             _program = Input.GetData()
                 .Split(',')
-                .Select(int.Parse)
+                .Select(long.Parse)
                 .ToArray();
         }
 

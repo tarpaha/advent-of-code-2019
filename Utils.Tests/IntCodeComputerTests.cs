@@ -41,10 +41,10 @@ namespace Utils.Tests
             }
         }
         
-        private int[] MakeRandomData()
+        private long[] MakeRandomData()
         {
             const int length = 10;
-            return Enumerable.Repeat(0, length).Select(_ => _random.Next()).ToArray();
+            return Enumerable.Repeat(0, length).Select(_ => (long)_random.Next()).ToArray();
         }
 
         [TestCase("", "1,0,0,0,99", "2,0,0,0,99", "")]
@@ -87,11 +87,11 @@ namespace Utils.Tests
             Assert.That(output.Data, Is.EquivalentTo(Parse(outputStr)));
         }
 
-        private static int[] Parse(string str)
+        private static long[] Parse(string str)
         {
             return string.IsNullOrEmpty(str)
-                ? new int[0]
-                : str.Split(',').Select(int.Parse).ToArray();
+                ? new long[0]
+                : str.Split(',').Select(long.Parse).ToArray();
         }
     }
 }

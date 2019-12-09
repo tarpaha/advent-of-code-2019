@@ -6,7 +6,7 @@ namespace Day_2019_12_07
 {
     public static class Circuit1
     {
-        public static int GetHighestSignal(int[] program)
+        public static long GetHighestSignal(long[] program)
         {
             var permutations = Combinatorics.Permute(Enumerable.Range(0, 5).ToList());
 
@@ -25,7 +25,7 @@ namespace Day_2019_12_07
             var lastComputerOutput = new BufferOutput();
             computers.Last().SetOutput(lastComputerOutput);
 
-            var highestSignal = 0;
+            var highestSignal = 0L;
             foreach (var permutation in permutations)
             {
                 for (var i = 0; i < computers.Count; i++)

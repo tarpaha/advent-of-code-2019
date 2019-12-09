@@ -6,14 +6,14 @@ namespace Utils
 {
     public interface IDataReceiver
     {
-        void AddInput(int value);
+        void AddInput(long value);
     }
 
     public class BufferOutput : IDataReceiver
     {
-        public IEnumerable<int> Data => _data;
-        private readonly List<int> _data = new List<int>();
-        public void AddInput(int value)
+        public IEnumerable<long> Data => _data;
+        private readonly List<long> _data = new List<long>();
+        public void AddInput(long value)
         {
             _data.Add(value);
         }
@@ -21,12 +21,12 @@ namespace Utils
     
     public class IntCodeComputer : IDataReceiver
     {
-        private int[] _program;
-        private int[] _memory;
+        private long[] _program;
+        private long[] _memory;
 
-        private int _ip;
+        private long _ip;
         
-        private Queue<int> _input;
+        private Queue<long> _input;
         private IDataReceiver _output;
 
         public enum State
@@ -38,10 +38,10 @@ namespace Utils
         }
         public State CurrentState { get; private set; }
 
-        public void LoadProgram(int[] data)
+        public void LoadProgram(long[] data)
         {
-            _program = new int[data.Length];
-            _memory = new int[data.Length];
+            _program = new long[data.Length];
+            _memory = new long[data.Length];
             
             Array.Copy(data, _program, data.Length);
             Reset();
@@ -51,33 +51,33 @@ namespace Utils
         {
             Array.Copy(_program, _memory, _program.Length);
             _ip = 0;
-            _input = new Queue<int>();
+            _input = new Queue<long>();
             CurrentState = State.Ready;
         }
 
-        public void SetMemory(int offset, int value)
+        public void SetMemory(long offset, long value)
         {
             _memory[offset] = value;
         }
 
-        public int GetMemory(int offset)
+        public long GetMemory(long offset)
         {
             return _memory[offset];
         }
 
-        public int[] GetMemory()
+        public long[] GetMemory()
         {
             return _memory;
         }
 
-        public void AddInput(int value)
+        public void AddInput(long value)
         {
             _input.Enqueue(value);
         }
 
-        public int GetInput()
+        public long GetInput()
         {
-            return new List<int>(_input).First();
+            return new List<long>(_input).First();
         }
         
         public void SetOutput(IDataReceiver output)
