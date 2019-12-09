@@ -31,9 +31,9 @@ namespace Day_2019_12_08.App
         public object SolvePart1()
         {
             var layerWithMinZeros = Enumerable.Range(0, _image.LayersCount)
-                .Select(id => (id, num: _image.GetNumDigitsInLayer(id, 0)))
-                .OrderBy(pair => pair.num)
-                .First().id;
+                .Select(id => (id, _image.GetNumDigitsInLayer(id, 0)))
+                .OrderBy(pair => pair.Item2)
+                .First().Item1;
 
             return _image.GetNumDigitsInLayer(layerWithMinZeros, 1) * _image.GetNumDigitsInLayer(layerWithMinZeros, 2);
         }
