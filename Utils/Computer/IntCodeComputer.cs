@@ -10,6 +10,7 @@ namespace Utils.Computer
         private readonly IMemory _memory = new InfiniteMemory();
 
         private long _ip;
+        private long _baseOffset;
         
         private Queue<long> _input;
         private IDataReceiver _output;
@@ -76,6 +77,8 @@ namespace Utils.Computer
                     return _memory.Get(_memory.Get(offset));
                 case 1:
                     return _memory.Get(offset);
+                case 2:
+                    return _memory.Get(_memory.Get(offset) + _baseOffset);
                 default:
                     throw new Exception();
             }
@@ -167,6 +170,13 @@ namespace Utils.Computer
                             var value2 = GetValue(mode2, _ip + 2);
                             _memory.Set(_memory.Get(_ip + 3), value1 == value2 ? 1 : 0);
                             _ip += 4;
+                            break;
+                        }
+                        case 9:
+                        {
+                            var value1 = GetValue(mode1, _ip + 1);
+                            _baseOffset += value1;
+                            _ip += 2;
                             break;
                         }
                         case 99:
