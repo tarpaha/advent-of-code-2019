@@ -27,7 +27,7 @@ namespace Day_2019_12_10.Tests
         public void GetMostVisibleCountTest(string data, int count)
         {
             var planets = Reader.Read(data);
-            Assert.That(Visibility.GetMostVisibleCount(planets), Is.EqualTo(count));
+            Assert.That(Visibility.GetMostVisibleCount(planets).count, Is.EqualTo(count));
         }
     }
 }

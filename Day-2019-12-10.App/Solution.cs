@@ -15,7 +15,7 @@ namespace Day_2019_12_10.App
         public object SolvePart1()
         {
             var planets = Reader.Read(Input.GetData());
-            return Visibility.GetMostVisibleCount(planets);
+            return Visibility.GetMostVisibleCount(planets).count;
         }
 
         public object SolvePart2()

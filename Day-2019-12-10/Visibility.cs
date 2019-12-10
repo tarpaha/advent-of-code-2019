@@ -15,11 +15,12 @@ namespace Day_2019_12_10
                 .Count();
         }
 
-        public static int GetMostVisibleCount(IEnumerable<IAsteroid> field)
+        public static (IAsteroid asteroid, int count) GetMostVisibleCount(IEnumerable<IAsteroid> field)
         {
             return field
-                .Select(asteroid => GetVisibleCount(asteroid, field))
-                .Max();
+                .Select(asteroid => (asteroid, GetVisibleCount(asteroid, field)))
+                .OrderByDescending(tuple => tuple.Item2)
+                .First();
         }
     }
 }
