@@ -5,9 +5,9 @@ namespace Day_2019_12_10
 {
     public static class Reader
     {
-        public static IEnumerable<IPlanet> Read(string data)
+        public static IEnumerable<IAsteroid> Read(string data)
         {
-            var planets = new List<IPlanet>();
+            var planets = new List<IAsteroid>();
             var lines = data.Split(new [] { "|", Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
             for (var y = 0; y < lines.Length; y++)
             {
@@ -17,7 +17,7 @@ namespace Day_2019_12_10
                     var ch = line[x];
                     if(ch == '.')
                         continue;
-                    planets.Add(new Planet(x, y, ch.ToString()));
+                    planets.Add(new Asteroid(x, y, ch.ToString()));
                 }
             }
             return planets;
