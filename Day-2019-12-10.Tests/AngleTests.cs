@@ -15,10 +15,10 @@ namespace Day_2019_12_10.Tests
         [TestCase("B..|.A.|...", 315.0f)]
         public void Test(string data, float angle)
         {
-            var planets = Reader.Read(data).ToList();
-            var planetA = planets.First(planet => planet.Name == "A");
-            var planetB = planets.First(planet => planet.Name == "B");
-            Assert.That(Angle.Calculate(planetA, planetB), Is.EqualTo(angle));
+            var asteroids = Reader.Read(data).ToList();
+            var asteroidA = asteroids.First(asteroid => asteroid.Name == "A");
+            var asteroidB = asteroids.First(asteroid => asteroid.Name == "B");
+            Assert.That(Angle.Calculate(asteroidA, asteroidB), Is.EqualTo(angle));
         }
     }
 }

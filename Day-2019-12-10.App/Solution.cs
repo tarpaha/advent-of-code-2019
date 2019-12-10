@@ -15,23 +15,23 @@ namespace Day_2019_12_10.App
         }
 
         private readonly int _n;
-        private readonly IEnumerable<IAsteroid> _planets;
+        private readonly IEnumerable<IAsteroid> _asteroids;
 
         public Solution()
         {
             _n = 200;
-            _planets = Reader.Read(Input.GetData()); 
+            _asteroids = Reader.Read(Input.GetData()); 
         }
 
         public object SolvePart1()
         {
-            return Visibility.GetMostVisibleCount(_planets).count;
+            return Visibility.GetMostVisibleCount(_asteroids).count;
         }
 
         public object SolvePart2()
         {
-            var baseAsteroid = Visibility.GetMostVisibleCount(_planets).asteroid;
-            var nthDestroyed = Laser.GetNthDestroyedAsteroid(_n, baseAsteroid, _planets);
+            var baseAsteroid = Visibility.GetMostVisibleCount(_asteroids).asteroid;
+            var nthDestroyed = Laser.GetNthDestroyedAsteroid(_n, baseAsteroid, _asteroids);
             return 100 * nthDestroyed.X + nthDestroyed.Y;
         }
     }

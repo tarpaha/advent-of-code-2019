@@ -11,11 +11,11 @@ namespace Day_2019_12_10.Tests
         [TestCase(".7..7|.....|67775|....7|...87")]
         public void GetVisibleCountTest(string data)
         {
-            var planets = Reader.Read(data).ToList();
-            foreach (var planet in planets)
+            var asteroids = Reader.Read(data).ToList();
+            foreach (var asteroid in asteroids)
             {
-                var visibleCount = Visibility.GetVisibleCount(planet, planets); 
-                Assert.That(visibleCount.ToString(), Is.EqualTo(planet.Name));
+                var visibleCount = Visibility.GetVisibleCount(asteroid, asteroids); 
+                Assert.That(visibleCount.ToString(), Is.EqualTo(asteroid.Name));
             }
         }
 
@@ -26,8 +26,8 @@ namespace Day_2019_12_10.Tests
         [TestCase(".#..##.###...#######|##.############..##.|.#.######.########.#|.###.#######.####.#.|#####.##.#.##.###.##|..#####..#.#########|####################|#.####....###.#.#.##|##.#################|#####.##.###..####..|..######..##.#######|####.##.####...##..#|.#####..#.######.###|##...#.##########...|#.##########.#######|.####.#.###.###.#.##|....##.##.###..#####|.#.#.###########.###|#.#.#.#####.####.###|###.##.####.##.#..##", 210)]
         public void GetMostVisibleCountTest(string data, int count)
         {
-            var planets = Reader.Read(data);
-            Assert.That(Visibility.GetMostVisibleCount(planets).count, Is.EqualTo(count));
+            var asteroids = Reader.Read(data);
+            Assert.That(Visibility.GetMostVisibleCount(asteroids).count, Is.EqualTo(count));
         }
     }
 }
