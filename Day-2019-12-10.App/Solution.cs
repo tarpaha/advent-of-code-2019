@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Linq;
+using System.Collections.Generic;
 using Utils;
 
 namespace Day_2019_12_10.App
@@ -12,15 +14,25 @@ namespace Day_2019_12_10.App
             Console.WriteLine($"Part2: {solution.SolvePart2()}");
         }
 
+        private readonly int _n;
+        private readonly IEnumerable<IAsteroid> _planets;
+
+        public Solution()
+        {
+            _n = 200;
+            _planets = Reader.Read(Input.GetData()); 
+        }
+
         public object SolvePart1()
         {
-            var planets = Reader.Read(Input.GetData());
-            return Visibility.GetMostVisibleCount(planets).count;
+            return Visibility.GetMostVisibleCount(_planets).count;
         }
 
         public object SolvePart2()
         {
-            return null;
+            var baseAsteroid = Visibility.GetMostVisibleCount(_planets).asteroid;
+            var nthDestroyed = Laser.GetNthDestroyedAsteroid(_n, baseAsteroid, _planets);
+            return 100 * nthDestroyed.X + nthDestroyed.Y;
         }
     }
 }
