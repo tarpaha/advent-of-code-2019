@@ -5,7 +5,7 @@ namespace Day_2019_12_10
 {
     public static class Visibility
     {
-        public static int VisibleCount(IAsteroid from, IEnumerable<IAsteroid> field)
+        public static int GetVisibleCount(IAsteroid from, IEnumerable<IAsteroid> field)
         {
             return field
                 .Where(asteroid => asteroid != from)
@@ -13,6 +13,13 @@ namespace Day_2019_12_10
                 .Select(d => (d.dx, d.dy))
                 .Distinct()
                 .Count();
+        }
+
+        public static int GetMostVisibleCount(IEnumerable<IAsteroid> field)
+        {
+            return field
+                .Select(asteroid => GetVisibleCount(asteroid, field))
+                .Max();
         }
     }
 }
