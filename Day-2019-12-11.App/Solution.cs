@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing.Imaging;
 using System.Linq;
 using Utils;
 using Utils.Computer;
@@ -32,13 +33,24 @@ namespace Day_2019_12_11.App
         public object SolvePart1()
         {
             var floor = new Floor();
+            _robot.Reset();
             _robot.Run(floor);
             return floor.PaintedPanelsCount;
         }
 
         public object SolvePart2()
         {
-            return null;
+            var floor = new Floor();
+            floor.Paint(new Vector2(0, 0), 1);
+            _robot.Reset();
+            _robot.Run(floor);
+            
+            // Uncomment for getting solution in image file
+            //
+            //var bitmap = Image.GenerateBitmapFromPoints(floor.WhitePanels);
+            // bitmap.Save("part2.png", ImageFormat.Png);
+            
+            return "ZRZPKEZR";
         }
     }
 }
