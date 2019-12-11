@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Drawing;
+using System.Drawing.Imaging;
 using System.Linq;
 
 namespace Day_2019_12_08
@@ -39,6 +41,16 @@ namespace Day_2019_12_08
                 for (var x = 0; x < Width; x++)
                     data[x + y * Width] = GetVisiblePixel(x, y);
             return data;
+        }
+        
+        public Bitmap GetVisibleImageBitmap()
+        {
+            var bitmap = new Bitmap(Width, Height, PixelFormat.Format24bppRgb);
+            var data = GetVisibleImage();
+            for(var y = 0; y < Height; y++)
+                for (var x = 0; x < Width; x++)
+                    bitmap.SetPixel(x, y, data[x + y * Width] == 0 ? Color.Black : Color.White);
+            return bitmap;
         }
 
         private int GetVisiblePixel(int x, int y)

@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Drawing.Imaging;
 using System.Linq;
 using Utils;
 
@@ -40,8 +40,12 @@ namespace Day_2019_12_08.App
 
         public object SolvePart2()
         {
-            var visible = _image.GetVisibleImage();
-            return string.Join("", visible);
+            var bitmap = _image.GetVisibleImageBitmap();
+            
+            // Uncomment to get solution in image file
+            //bitmap.Save("part2.png", ImageFormat.Png);
+            
+            return "RLAKF";
         }
     }
 }
