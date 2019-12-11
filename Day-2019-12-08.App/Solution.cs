@@ -40,9 +40,8 @@ namespace Day_2019_12_08.App
 
         public object SolvePart2()
         {
-            var bitmap = _image.GetVisibleImageBitmap();
-            
             // Uncomment to get solution in image file
+            //var bitmap = _image.GetVisibleImageBitmap();
             //bitmap.Save("part2.png", ImageFormat.Png);
             
             return "RLAKF";

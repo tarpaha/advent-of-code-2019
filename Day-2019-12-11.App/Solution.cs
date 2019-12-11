@@ -45,9 +45,8 @@ namespace Day_2019_12_11.App
             _robot.Reset();
             _robot.Run(floor);
             
-            var bitmap = Image.GenerateBitmapFromPoints(floor.WhitePanels);
-            
             // Uncomment to get solution in image file
+            //var bitmap = Image.GenerateBitmapFromPoints(floor.WhitePanels);
             //bitmap.Save("part2.png", ImageFormat.Png);
             
             return "ZRZPKEZR";
