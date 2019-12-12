@@ -15,5 +15,15 @@ namespace Utils.Tests
         {
             Assert.That(Mathematics.ReduceFraction(a1, b1), Is.EqualTo((a2, b2, n)));
         }
+
+        [TestCase(-2, -1)]
+        [TestCase(-1, -1)]
+        [TestCase(0, 0)]
+        [TestCase(1, 1)]
+        [TestCase(2, 1)]
+        public void SignTests(int v, int sign)
+        {
+            Assert.That(Mathematics.Sign(v), Is.EqualTo(sign));
+        }
     }
 }

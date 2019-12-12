@@ -26,5 +26,14 @@ namespace Utils
             }
             return (a, b, n);
         }
+
+        public static int Sign(int v)
+        {
+            if (v > 0)
+                return 1;
+            if (v < 0)
+                return -1;
+            return 0;
+        }
     }
 }
