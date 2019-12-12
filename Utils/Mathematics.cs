@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Utils
 {
@@ -53,6 +54,32 @@ namespace Utils
                 }
             }
             return dividers.ToArray();
+        }
+
+        public static long LeastCommonMultiple(long[] values)
+        {
+            var max = values.Max();
+            var maxDividers = Dividers(max).ToList();
+
+            var otherDividers = values
+                .Where(v => v != max)
+                .Select(v => Dividers(v).ToList())
+                .ToList();
+
+            foreach (var maxDivider in maxDividers)
+            {
+                foreach (var dividers in otherDividers)
+                {
+                    dividers.Remove(maxDivider);
+                }
+            }
+
+            foreach (var dividers in otherDividers)
+            {
+                maxDividers.AddRange(dividers);
+            }
+            
+            return maxDividers.Aggregate((x, y) => x * y);
         }
     }
 }

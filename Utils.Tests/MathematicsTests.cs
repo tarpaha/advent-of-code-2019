@@ -36,5 +36,15 @@ namespace Utils.Tests
         {
             Assert.That(Mathematics.Dividers(v), Is.EquivalentTo(dividers));
         }
+
+        [TestCase(new[] { 1L }, 1L)]
+        [TestCase(new[] { 2L }, 2L)]
+        [TestCase(new[] { 2L, 3L }, 6L)]
+        [TestCase(new[] { 2L, 4L }, 4L)]
+        [TestCase(new[] { 44L, 28L, 18L }, 2772L)]
+        public void LeastCommonMultiplyTest(long[] values, long lcm)
+        {
+            Assert.That(Mathematics.LeastCommonMultiple(values), Is.EqualTo(lcm));
+        }
     }
 }
