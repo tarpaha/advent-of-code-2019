@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Utils;
 
 namespace Day_2019_12_12.App
@@ -13,24 +14,25 @@ namespace Day_2019_12_12.App
         }
 
         private readonly int _steps;
-        private readonly Space _space;
+        private readonly IEnumerable<Vector3> _points;
         
         public Solution()
         {
             _steps = 1000;
-            _space = new Space(Parser.ParsePoints(Input.GetData()));
+            _points = Parser.ParsePoints(Input.GetData());
         }
 
         public object SolvePart1()
         {
+            var space = new Space(_points);
             for(var i = 0; i < _steps; i++)
-                _space.Step();
-            return _space.TotalEnergy;
+                space.Step();
+            return space.TotalEnergy;
         }
 
         public object SolvePart2()
         {
-            return null;
+            return new Space(_points).GetRepeatPeriod();
         }
     }
 }
