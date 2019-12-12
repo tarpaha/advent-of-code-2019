@@ -5,6 +5,16 @@ namespace Utils.Tests
 {
     public class Vector3Tests
     {
+        private static IEnumerable<TestCaseData> OperatorUnaryPlusTestCases
+        {
+            get
+            {
+                yield return new TestCaseData(new Vector3(0, 0, 0));
+                yield return new TestCaseData(new Vector3(1, 2, 3));
+                yield return new TestCaseData(new Vector3(-4, -5, -6));
+            }
+        }
+        
         private static IEnumerable<TestCaseData> OperatorUnaryMinusTestCases
         {
             get
@@ -33,12 +43,17 @@ namespace Utils.Tests
             }
         }
 
+        [TestCaseSource("OperatorUnaryPlusTestCases")]
+        public void UnaryPlusTests(Vector3 a)
+        {
+            Assert.That(+a, Is.EqualTo(a));
+        }
+        
         [TestCaseSource("OperatorUnaryMinusTestCases")]
         public void UnaryMinusTests(Vector3 a, Vector3 b)
         {
             Assert.That(-a, Is.EqualTo(b));
         }
-        
         
         [TestCaseSource("OperatorPlusTestCases")]
         public void PlusTests(Vector3 a, Vector3 b, Vector3 c)

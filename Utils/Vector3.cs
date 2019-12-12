@@ -17,6 +17,11 @@
             return $"({x}, {y}, {z})";
         }
 
+        public static Vector3 operator +(Vector3 a)
+        {
+            return new Vector3(a.x, a.y, a.z);
+        }
+        
         public static Vector3 operator -(Vector3 a)
         {
             return new Vector3(-a.x, -a.y, -a.z);
