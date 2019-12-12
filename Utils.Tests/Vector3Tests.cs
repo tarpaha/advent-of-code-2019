@@ -43,6 +43,16 @@ namespace Utils.Tests
             }
         }
 
+        private static IEnumerable<TestCaseData> OperatorEqualTestCases
+        {
+            get
+            {
+                yield return new TestCaseData(new Vector3(0, 0, 0), new Vector3(0, 0, 0), true);
+                yield return new TestCaseData(new Vector3(1, 2, 3), new Vector3(1, 2, 3), true);
+                yield return new TestCaseData(new Vector3(1, 2, 3), new Vector3(1, 2, 4), false);
+            }
+        }
+        
         [TestCaseSource("OperatorUnaryPlusTestCases")]
         public void UnaryPlusTests(Vector3 a)
         {
@@ -65,6 +75,12 @@ namespace Utils.Tests
         public void MinusTests(Vector3 a, Vector3 b, Vector3 c)
         {
             Assert.That(a - b, Is.EqualTo(c));
+        }
+        
+        [TestCaseSource("OperatorEqualTestCases")]
+        public void EqualTests(Vector3 a, Vector3 b, bool equal)
+        {
+            Assert.That(a == b, Is.EqualTo(equal));
         }
     }
 }
