@@ -25,5 +25,16 @@ namespace Utils.Tests
         {
             Assert.That(Mathematics.Sign(v), Is.EqualTo(sign));
         }
+
+        [TestCase(1L, new[] { 1L })]
+        [TestCase(2L, new[] { 2L })]
+        [TestCase(6L, new[] { 2L, 3L })]
+        [TestCase(9L, new[] { 3L, 3L })]
+        [TestCase(36L, new[] { 2L, 2L, 3L, 3L })]
+        [TestCase(97L, new[] { 97L })]
+        public void DividersTests(long v, long[] dividers)
+        {
+            Assert.That(Mathematics.Dividers(v), Is.EquivalentTo(dividers));
+        }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Utils
 {
@@ -34,6 +35,24 @@ namespace Utils
             if (v < 0)
                 return -1;
             return 0;
+        }
+
+        public static long[] Dividers(long v)
+        {
+            if (v == 1)
+                return new long[] { 1 };
+            
+            var dividers = new List<long>();
+            for (var d = 2; d <= v; d++)
+            {
+                if (v % d == 0)
+                {
+                    dividers.Add(d);
+                    v /= d;
+                    d--;
+                }
+            }
+            return dividers.ToArray();
         }
     }
 }
