@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing.Imaging;
 using System.Linq;
 using Utils;
 
@@ -35,7 +36,13 @@ namespace Day_2019_12_13.App
 
         public object SolvePart2()
         {
-            return null;
+            var player = new Player(_arcadeCabinet);
+            var score = player.Play(2, stepCount =>
+            {
+                // uncomment to save each step to images folder
+                //Image.FromScreen(_screen, 16).Save($"images/{stepCount:D6}.png", ImageFormat.Png);
+            });
+            return score;
         }
     }
 }

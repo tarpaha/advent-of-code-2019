@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Utils;
 using Utils.Computer;
 
 namespace Day_2019_12_13
@@ -8,6 +9,12 @@ namespace Day_2019_12_13
     {
         private readonly Screen _screen;
         private readonly IntCodeComputer _computer;
+
+        public void Input(int data) { _computer.AddInput(data); }        
+        public Vector2 BallPosition => _screen.BallPosition;
+        public Vector2 PaddlePosition => _screen.PaddlePosition;
+        public int Score => _screen.Score;
+        public bool GameComplete => _computer.CurrentState == IntCodeComputer.State.Halt;
 
         public ArcadeCabinet(Screen screen, long[] program)
         {
@@ -20,6 +27,11 @@ namespace Day_2019_12_13
         {
             _computer.Reset();
             _screen.Clear();
+        }
+
+        public void InsertQuarters(int amount)
+        {
+            _computer.SetMemory(0, amount);
         }
         
         public void Run()
