@@ -14,7 +14,9 @@ namespace Day_2019_12_14.App
 
         public object SolvePart1()
         {
-            return null;
+            var data = Input.GetData();
+            var reactions = Parser.Parse(data);
+            return Solver.CalculateOreAmountForOneFuel(reactions);
         }
 
         public object SolvePart2()
