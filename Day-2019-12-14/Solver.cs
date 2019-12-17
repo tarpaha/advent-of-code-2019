@@ -10,6 +10,8 @@ namespace Day_2019_12_14
         
         public static int CalculateOreAmountForOneFuel(IEnumerable<IReaction> reactions)
         {
+            var reactionsDict = reactions.ToDictionary(reaction => reaction.Output.Name, reaction => reaction);
+            
             var requiredChemicals = new List<(string name, int amount)>();
             var waste = new Dictionary<string, int>();
             
@@ -18,16 +20,17 @@ namespace Day_2019_12_14
             var ore = 0;
             while(requiredChemicals.Count > 0)
             {
-                var requiredChemical = requiredChemicals[0];
+                var (requiredChemicalName, requiredChemicalAmount) = requiredChemicals[0];
                 requiredChemicals.RemoveAt(0);
 
-                if (waste.ContainsKey(requiredChemical.name) && waste[requiredChemical.name] >= requiredChemical.amount)
+                waste.TryGetValue(requiredChemicalName, out var wasteAmount);
+                if (wasteAmount >= requiredChemicalAmount)
                 {
-                    waste[requiredChemical.name] -= requiredChemical.amount;
+                    waste[requiredChemicalName] = wasteAmount - requiredChemicalAmount;
                     continue;
                 }
-                
-                var requiredReaction = reactions.First(reaction => reaction.Output.Name == requiredChemical.name);
+
+                var requiredReaction = reactionsDict[requiredChemicalName];
 
                 foreach (var inputChemical in requiredReaction.Input)
                 {
@@ -38,14 +41,14 @@ namespace Day_2019_12_14
                 }
 
                 var outputFromReaction = requiredReaction.Output.Amount;
-                if (requiredChemical.amount > outputFromReaction)
+                if (requiredChemicalAmount > outputFromReaction)
                 {
-                    requiredChemicals.Add((requiredChemical.name, requiredChemical.amount - outputFromReaction));
+                    requiredChemicals.Add((requiredChemicalName, requiredChemicalAmount - outputFromReaction));
                 }
-                else if (requiredChemical.amount < outputFromReaction)
+                else if (requiredChemicalAmount < outputFromReaction)
                 {
-                    waste.TryGetValue(requiredChemical.name, out var wasteAmount);
-                    waste[requiredChemical.name] = wasteAmount + outputFromReaction - requiredChemical.amount;
+                    waste.TryGetValue(requiredChemicalName, out wasteAmount);
+                    waste[requiredChemicalName] = wasteAmount + outputFromReaction - requiredChemicalAmount;
                 }
             }
             return ore;
