@@ -16,12 +16,14 @@ namespace Day_2019_12_14.App
         {
             var data = Input.GetData();
             var reactions = Parser.Parse(data);
-            return Solver.CalculateOreAmountForOneFuel(reactions);
+            return Solver.CalculateOreAmountForFuel(reactions);
         }
 
         public object SolvePart2()
         {
-            return null;
+            var data = Input.GetData();
+            var reactions = Parser.Parse(data);
+            return Solver.CalculateFuelAmountForTrillionOre(reactions);
         }
     }
 }
