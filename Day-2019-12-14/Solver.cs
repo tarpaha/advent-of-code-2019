@@ -24,23 +24,31 @@ namespace Day_2019_12_14
                 requiredChemicals.RemoveAt(0);
 
                 waste.TryGetValue(requiredChemicalName, out var wasteAmount);
-                if (wasteAmount >= requiredChemicalAmount)
+                if (wasteAmount > 0)
                 {
-                    waste[requiredChemicalName] = wasteAmount - requiredChemicalAmount;
-                    continue;
+                    var useFromWaste = wasteAmount < requiredChemicalAmount
+                        ? wasteAmount
+                        : requiredChemicalAmount;
+                    waste[requiredChemicalName] = wasteAmount - useFromWaste;
+                    requiredChemicalAmount -= useFromWaste;
+                    if(requiredChemicalAmount == 0)
+                        continue;
                 }
 
                 var requiredReaction = reactionsDict[requiredChemicalName];
+                var requiredReactionTimes = requiredChemicalAmount / requiredReaction.Output.Amount;
+                if (requiredChemicalAmount % requiredReaction.Output.Amount > 0)
+                    requiredReactionTimes += 1;
 
                 foreach (var inputChemical in requiredReaction.Input)
                 {
                     if (inputChemical.Name == Ore)
-                        ore += inputChemical.Amount;
+                        ore += requiredReactionTimes * inputChemical.Amount;
                     else
-                        requiredChemicals.Add((inputChemical.Name, inputChemical.Amount));
+                        requiredChemicals.Add((inputChemical.Name, requiredReactionTimes * inputChemical.Amount));
                 }
 
-                var outputFromReaction = requiredReaction.Output.Amount;
+                var outputFromReaction = requiredReactionTimes * requiredReaction.Output.Amount;
                 if (requiredChemicalAmount > outputFromReaction)
                 {
                     requiredChemicals.Add((requiredChemicalName, requiredChemicalAmount - outputFromReaction));
