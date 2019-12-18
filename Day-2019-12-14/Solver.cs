@@ -8,16 +8,16 @@ namespace Day_2019_12_14
         private const string Fuel = "FUEL";
         private const string Ore = "ORE";
         
-        public static int CalculateOreAmountForOneFuel(IEnumerable<IReaction> reactions)
+        public static long CalculateOreAmountForOneFuel(IEnumerable<IReaction> reactions)
         {
             var reactionsDict = reactions.ToDictionary(reaction => reaction.Output.Name, reaction => reaction);
             
-            var requiredChemicals = new List<(string name, int amount)>();
-            var waste = new Dictionary<string, int>();
+            var requiredChemicals = new List<(string name, long amount)>();
+            var waste = new Dictionary<string, long>();
             
             requiredChemicals.Add((Fuel, 1));
 
-            var ore = 0;
+            var ore = 0L;
             while(requiredChemicals.Count > 0)
             {
                 var (requiredChemicalName, requiredChemicalAmount) = requiredChemicals[0];
