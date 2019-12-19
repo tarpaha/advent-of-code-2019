@@ -19,5 +19,22 @@ namespace Utils
         {
             return $"({x}, {y})";
         }
+
+        public int SqrDist(Vector2 p)
+        {
+            var dx = p.x - x;
+            var dy = p.y - y;
+            return dx * dx + dy * dy;
+        }
+
+        public static bool operator ==(Vector2 a, Vector2 b)
+        {
+            return a.x == b.x && a.y == b.y;
+        }
+
+        public static bool operator !=(Vector2 a, Vector2 b)
+        {
+            return !(a == b);
+        }
     }
 }
