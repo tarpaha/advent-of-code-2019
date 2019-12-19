@@ -26,5 +26,18 @@ namespace Day_2019_12_15
                 return false;
             return cellState != 0;
         }
+
+        public Vector2 OxygenPosition => _cells.First(cell => cell.Value == 2).Key;
+
+        public (Vector2, Vector2) GetBounds()
+        {
+            return (
+                new Vector2(
+                    _cells.Select(cell => cell.Key.x).Min(),
+                    _cells.Select(cell => cell.Key.y).Min()),
+                new Vector2(
+                    _cells.Select(cell => cell.Key.x).Max(),
+                    _cells.Select(cell => cell.Key.y).Max()));
+        }
     }
 }

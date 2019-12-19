@@ -14,25 +14,41 @@ namespace Day_2019_12_15.App
             Console.WriteLine($"Part2: {solution.SolvePart2()}");
         }
 
-        public object SolvePart1()
+        private readonly Field _field;
+        private readonly Droid _droid;
+
+        public Solution()
         {
-            var field = new Field();
+            _field = new Field();
             var program = Input.GetData()
                 .Split(',')
                 .Select(long.Parse)
                 .ToArray();
+            _droid = new Droid(_field, program);
+        }
 
-            var droid = new Droid(field, program);
+        public object SolvePart1()
+        {
+            BuildMap();
+            return _droid.GetStepsCountBetween(new Vector2(0, 0), _field.OxygenPosition);
+        }
+
+        private void BuildMap()
+        {
+            _droid.BuildMap(() => {});
+        }
+
+        private void BuildMapWithImages()
+        {
+            var bounds = (new Vector2(-21, -21), new Vector2(19, 19));
             var step = 0;
-            var steps = droid.Explore(() =>
+            _droid.BuildMap(() =>
             {
-                /*var filename = $"images/{step:D6}.png";
-                Image.FromCells(field.Cells, 16).Save(filename, ImageFormat.Png);;
+                var filename = $"images/{step:D6}.png";
+                Image.FromCells(_field.Cells, bounds,  16).Save(filename, ImageFormat.Png);
                 Console.WriteLine(filename);
-                step += 1;*/
+                step += 1;
             });
-            
-            return steps;
         }
 
         public object SolvePart2()

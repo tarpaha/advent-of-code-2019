@@ -9,19 +9,17 @@ namespace Day_2019_12_15
 {
     public class Image
     {
-        public static Bitmap FromCells(IEnumerable<(Vector2 pos, int state)> cellsCollection, int tileSize)
+        public static Bitmap FromCells(IEnumerable<(Vector2 pos, int state)> cells, (Vector2 min, Vector2 max) bounds,
+            int tileSize)
         {
-            var cells = cellsCollection.ToList();
-            var minX = cells.Min(t => t.pos.x);
-            var maxX = cells.Max(t => t.pos.x);
-            var minY = cells.Min(t => t.pos.y);
-            var maxY = cells.Max(t => t.pos.y);
-            
-            var bitmap = new Bitmap(tileSize * (maxX - minX + 1), tileSize * (maxY - minY + 1), PixelFormat.Format24bppRgb);
+            var bitmap = new Bitmap(
+                tileSize * (bounds.max.x - bounds.min.x + 1),
+                tileSize * (bounds.max.y - bounds.min.y + 1),
+                PixelFormat.Format24bppRgb);
             Graphics.FromImage(bitmap).Clear(Color.Black);
             foreach (var (pos, state) in cells)
             {
-                DrawRectangle(bitmap, tileSize * (pos.x - minX), tileSize * (pos.y - minY), tileSize, state);
+                DrawRectangle(bitmap, tileSize * (pos.x - bounds.min.x), tileSize * (pos.y - bounds.min.y), tileSize, state);
             }
 
             return bitmap;
