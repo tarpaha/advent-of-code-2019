@@ -24,15 +24,15 @@ namespace Day_2019_12_15.App
 
             var droid = new Droid(field, program);
             var step = 0;
-            droid.Explore(() =>
+            var steps = droid.Explore(() =>
             {
-                var filename = $"images/{step:D6}.png";
+                /*var filename = $"images/{step:D6}.png";
                 Image.FromCells(field.Cells, 16).Save(filename, ImageFormat.Png);;
                 Console.WriteLine(filename);
-                step += 1;
+                step += 1;*/
             });
             
-            return null;
+            return steps;
         }
 
         public object SolvePart2()
