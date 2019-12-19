@@ -1,0 +1,1 @@
+ffmpeg -y -r 90/1 -i %06d.png -c:v mpeg4 video.mp4
