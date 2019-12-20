@@ -67,14 +67,6 @@ namespace Day_2019_12_15
                     onStep();
                 }
             }
-
-            /*
-            var map = new Dictionary<Vector2, int>();
-            var p1 = new Vector2(0, 0);
-            var p2 = position;
-            PrepareMap(map, p1, p2);
-            var steps = CalculateSteps(map, p1, p2);
-            return steps.Count();*/
         }
 
         public int GetStepsCountBetween(Vector2 start, Vector2 finish)
