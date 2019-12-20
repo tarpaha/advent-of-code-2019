@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Utils;
 
 namespace Day_2019_12_16.App
@@ -14,7 +15,9 @@ namespace Day_2019_12_16.App
 
         public object SolvePart1()
         {
-            return null;
+            var input = Input.GetData().Select(ch => ch - '0').ToArray();
+            var output = FFT.Process(input, 100);
+            return int.Parse(string.Join("", output.Take(8)));
         }
 
         public object SolvePart2()
