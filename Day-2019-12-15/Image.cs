@@ -42,7 +42,7 @@ namespace Day_2019_12_15
                 case 1:
                     return Brushes.Gray;
                 case 2:
-                    return Brushes.Green;
+                    return Brushes.SkyBlue;
                 default:
                     throw new InvalidOperationException();
             }
