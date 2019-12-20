@@ -74,6 +74,36 @@ namespace Day_2019_12_15
             return CalculateSteps(start, finish).Count();
         }
 
+        public int GetStepsToFloodAll(Action onStep)
+        {
+            var borderCells = new List<Vector2>();
+
+            var time = 0;
+            borderCells.Add(_field.OxygenPosition);
+
+            while (borderCells.Count > 0)
+            {
+                onStep();
+                
+                var newBorderCells = new List<Vector2>();
+                foreach (var borderCell in borderCells)
+                {
+                    var unknownDirections = GetDirectionsToCellsFrom(borderCell, p => _field.IsFloor(p));
+                    foreach (var direction in unknownDirections)
+                    {
+                        var pos = GetNewPosition(borderCell, direction);
+                        _field.SetCellState(pos, 2);
+                        newBorderCells.Add(pos);
+                    }
+                }
+                borderCells = newBorderCells;
+                
+                time += 1;
+            }
+            
+            return time - 1;
+        }
+
         private void Move(Vector2 p1, Vector2 p2)
         {
             if (p1 == p2)

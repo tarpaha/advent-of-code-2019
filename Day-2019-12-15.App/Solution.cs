@@ -29,31 +29,30 @@ namespace Day_2019_12_15.App
 
         public object SolvePart1()
         {
-            BuildMap();
-            return _droid.GetStepsCountBetween(new Vector2(0, 0), _field.OxygenPosition);
-        }
-
-        private void BuildMap()
-        {
             _droid.BuildMap(() => {});
-        }
-
-        private void BuildMapWithImages()
-        {
-            var bounds = (new Vector2(-21, -21), new Vector2(19, 19));
-            var step = 0;
-            _droid.BuildMap(() =>
-            {
-                var filename = $"images/{step:D6}.png";
-                Image.FromCells(_field.Cells, bounds,  16).Save(filename, ImageFormat.Png);
-                Console.WriteLine(filename);
-                step += 1;
-            });
+            // replace upper string with this to save each step to images folder
+            //SaveImages("images_part1", action => {  _droid.BuildMap(action); return 0; });
+            return _droid.GetStepsCountBetween(new Vector2(0, 0), _field.OxygenPosition);
         }
 
         public object SolvePart2()
         {
-            return null;
+            return _droid.GetStepsToFloodAll(() => { });
+            // replace upper string with this to save each step to images folder
+            //return SaveImages("images_part2", action => _droid.GetStepsToFloodAll(action));
+        }
+
+        private int SaveImages(string folder, Func<Action, int> func)
+        {
+            var bounds = (new Vector2(-21, -21), new Vector2(19, 19));
+            var step = 0;
+            return func(() =>
+            {
+                var filename = $"{folder}/{step:D6}.png";
+                Image.FromCells(_field.Cells, bounds,  16).Save(filename, ImageFormat.Png);
+                Console.WriteLine(filename);
+                step += 1;
+            });
         }
     }
 }

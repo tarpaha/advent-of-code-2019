@@ -26,6 +26,14 @@ namespace Day_2019_12_15
                 return false;
             return cellState != 0;
         }
+        
+        public bool IsFloor(Vector2 pos)
+        {
+            if (!_cells.TryGetValue(pos, out var cellState))
+                return false;
+            return cellState == 1;
+        }
+
 
         public Vector2 OxygenPosition => _cells.First(cell => cell.Value == 2).Key;
 
