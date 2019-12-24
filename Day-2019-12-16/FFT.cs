@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 
 namespace Day_2019_12_16
 {
@@ -7,39 +6,28 @@ namespace Day_2019_12_16
     {
         public static int[] Process(int[] signal, int phases)
         {
-            var patterns = Enumerable
-                .Range(1, signal.Length)
-                .Select(position => Pattern.Generate(signal.Length, position))
-                .ToArray();
-
             for (var i = 0; i < phases; i++)
-                signal = ProcessOnePhase(signal, patterns);
-
+                signal = ProcessOnePhase(signal);
             return signal;
         }
         
-        private static int[] ProcessOnePhase(int[] signal, int[][] patterns)
+        private static int[] ProcessOnePhase(int[] signal)
         {
-            return Enumerable
-                .Range(1, signal.Length)
-                .ToList()
+            return Enumerable.Range(0, signal.Length).ToList()
                 .AsParallel()
-                .Select(position => Multiply(signal, patterns[position - 1]))
-                .Select(LastDigit)
+                .Select(position =>
+                {
+                    var index = 0;
+                    var sum = Pattern.Generator(signal.Length, position + 1).Sum(n => signal[index++] * n);
+                    return LastDigit(sum);
+                })
                 .ToArray();
-        }
-
-        private static int Multiply(IReadOnlyList<int> signal, IReadOnlyList<int> pattern)
-        {
-            return signal.Select((t, i) => t * pattern[i]).Sum();
         }
         
         private static int LastDigit(int number)
         {
             var digit = number % 10;
-            if(digit < 0)
-                digit = -digit;
-            return digit;
+            return digit < 0 ? -digit : digit;
         }
     }
 }
