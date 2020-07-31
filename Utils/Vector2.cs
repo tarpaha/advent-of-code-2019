@@ -36,5 +36,22 @@ namespace Utils
         {
             return !(a == b);
         }
+
+        public override bool Equals(object obj)
+        {
+            return obj is Vector2 vector &&
+                   x == vector.x &&
+                   y == vector.y &&
+                   Manhattan == vector.Manhattan;
+        }
+
+        public override int GetHashCode()
+        {
+            int hashCode = 1687116382;
+            hashCode = hashCode * -1521134295 + x.GetHashCode();
+            hashCode = hashCode * -1521134295 + y.GetHashCode();
+            hashCode = hashCode * -1521134295 + Manhattan.GetHashCode();
+            return hashCode;
+        }
     }
 }
