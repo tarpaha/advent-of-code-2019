@@ -6,14 +6,17 @@ namespace Day_2019_12_16
     {
         private static readonly int[] BasePattern = {0, 1, 0, -1};
 
-        public static int[] Generate(int length, int position)
+        public static IEnumerable<int> Generator(int length, int position)
         {
-            var pattern = new List<int>(length + 1);
             var basePatternPosition = 0;
             var repeatCount = position;
+            var skipOne = true;
             for (var patternPosition = 0; patternPosition <= length; patternPosition++)
             {
-                pattern.Add(BasePattern[basePatternPosition]);
+                if(skipOne)
+                    skipOne = false;
+                else
+                    yield return BasePattern[basePatternPosition];
                 if (--repeatCount == 0)
                 {
                     if (++basePatternPosition == BasePattern.Length)
@@ -21,8 +24,6 @@ namespace Day_2019_12_16
                     repeatCount = position;
                 }
             }
-            pattern.RemoveAt(0);
-            return pattern.ToArray();
         }
     }
 }
